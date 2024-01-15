@@ -4,17 +4,18 @@ package com.grade.network_info
 import android.net.ConnectivityManager
 import android.os.Build
 import java.net.*
+import android.content.Context
 
 
-internal class NetworkInfo(private val cm: ConnectivityManager? = null) { 
-    // var cm : ConnectivityManager? = null; 
-
-    // fun create() {
-    //     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { 
-    //         cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager;
-    //     }
-    // }
+internal class NetworkInfo() { 
+    var connectivityManager : ConnectivityManager? = null; 
+    
+    fun create(context: Context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) { 
+        connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        }
+    }
 
     public fun networkType() : String =
-       cm?.getActiveNetworkInfo()?.getTypeName() ?: "Cannot get network info"
+       connectivityManager?.getActiveNetworkInfo()?.getTypeName() ?: "Cannot get network info"
 }

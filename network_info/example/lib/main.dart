@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:network_info/network_info.dart';
 
 void main() {
@@ -16,14 +13,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
   String _networkType = "unknown";
   final _networkInfoPlugin = NetworkInfo();
 
   @override
   void initState() {
     super.initState();
-    //initPlatformState();
   }
 
   @override

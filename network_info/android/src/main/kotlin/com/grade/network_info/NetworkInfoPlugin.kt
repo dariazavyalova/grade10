@@ -21,35 +21,12 @@ class NetworkInfoPlugin: FlutterPlugin {
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "network_info")
 
-    var connectivityManager : ConnectivityManager? = null
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) { 
-      connectivityManager = flutterPluginBinding.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    }
-    val networkInfo = NetworkInfo(connectivityManager)
+    val networkInfo = NetworkInfo()
+    networkInfo.create(flutterPluginBinding.applicationContext)
 
     val methodCallHandler = NetworkInfoMethodChannelHandler(networkInfo) 
     channel.setMethodCallHandler(methodCallHandler)
   }
-
-
-
-
-  // override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-   
-  //   // when(call.method) {
-  //   //   "getNetworkType" -> result.success(networkInfo.networkType()) 
-  //   //   else -> result.notImplemented()
-  //   // }
-  // }
-
-
-  // fun methodChannelHandler(@NonNull call: MethodCall, @NonNull result: Result, connectivityManager : ConnectivityManager? ) {
-  //   when(call.method) {
-  //     "getNetworkType" -> result.success(networkInfo.networkType()) 
-  //     else -> result.notImplemented()
-  //   }
-  // }
-  
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)
